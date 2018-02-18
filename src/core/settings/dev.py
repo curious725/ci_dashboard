@@ -4,6 +4,8 @@ from .base import *
 # DEBUG CONFIGURATION
 DEBUG = True
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
 ALLOWED_HOSTS = get_secret("dev_allowed_hosts")
 
 MIDDLEWARE += ['debug_toolbar.middleware.DebugToolbarMiddleware', ]
