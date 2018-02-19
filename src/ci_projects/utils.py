@@ -1,8 +1,8 @@
 import csv
-from django.contrib.staticfiles.storage import staticfiles_storage as stat_stor
+from django.contrib.staticfiles.finders import find
 
 
-def get_data(path=stat_stor.path('session_history.csv')):
+def get_data(path=find('session_history.csv')):
     results = {'builds': []}
     with open(path, encoding='utf-8') as file:
         reader = csv.DictReader(file, skipinitialspace=True)
