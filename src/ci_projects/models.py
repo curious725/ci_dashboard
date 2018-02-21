@@ -18,3 +18,8 @@ class Build(models.Model):
     pending_tests_count = models.IntegerField()
     skipped_tests_count = models.IntegerField()
     error_tests_count = models.IntegerField()
+
+    def __str__(self):
+        return "build with session_id {0}, created at {1}".format(
+            self.session_id, self.created_at
+        )
