@@ -4,11 +4,14 @@ var builds = $.ajax({
   url: endpoint,
   success: function(data){
     finalData = prepare_data_stacked_bar(data);
+    console.log(finalData);
 
     passed = getPassed(finalData);
     failed = getFailed(finalData);
     dates = getDates(finalData);
+    duration = getDuration(finalData);
     createStackedBarChart(passed, failed, dates);
+    createSimpleBarChart(duration, dates);
   },
   error: function(error_data){
     console.log("error");
@@ -24,9 +27,13 @@ var prepare_data_stacked_bar = function(initialData){
     if (!(date in finalData)) {
       finalData[date] = {
         passed: 0,
-        failed: 0
+        failed: 0,
+        duration: 0.0
       }
     }
+    var duration = element.duration;
+    console.log(duration);
+    finalData[date].duration += parseFloat(duration);
     var status = element.summary_status;
     if (status === 'passed') {
       finalData[date].passed++;
@@ -74,6 +81,13 @@ var getFailed = function(finalData) {
   return failed;
 }
 
+var getDuration = function(finalData) {
+  var duration = [];
+  for (var element in finalData) {
+    duration.push(finalData[element].duration);
+  }
+  return duration;
+}
 
 var createStackedBarChart = function(dataPack1, dataPack2,dates) {
 
@@ -137,3 +151,61 @@ var createStackedBarChart = function(dataPack1, dataPack2,dates) {
      }
   );
 };
+
+
+var createSimpleBarChart = function(dataPack,dates) {
+
+  var bar_ctx = document.getElementById('duration-time-chart');
+  var bar_chart = new Chart(bar_ctx, {
+      type: 'bar',
+      data: {
+          labels: dates,
+          datasets: [
+          {
+              label: 'passed',
+              data: dataPack,
+              backgroundColor: "rgba(55, 160, 225, 0.7)",
+              hoverBackgroundColor: "rgba(55, 160, 225, 0.7)",
+              hoverBorderWidth: 2,
+              hoverBorderColor: 'lightgrey'
+          }
+          ]
+      },
+      options: {
+          animation: {
+            duration: 10,
+          },
+          tooltips: {
+            mode: 'label',
+            callbacks: {
+            label: function(tooltipItem, data) {
+              return data.datasets[tooltipItem.datasetIndex].label + ": " + tooltipItem.yLabel;
+            }
+            }
+           },
+          scales: {
+            xAxes: [{
+              // stacked: true,
+              gridLines: { display: false },
+              }],
+            yAxes: [{
+              stacked: true,
+              ticks: {
+                callback: function(value) { return value; },
+              },
+              }],
+          }, // scales
+          legend: {
+            display: true,
+            // position: 'right',
+          },
+          title: {
+            display: true,
+            text: 'Summary statuses for builds per day'
+          }
+      } // options
+     }
+  );
+};
+
+
