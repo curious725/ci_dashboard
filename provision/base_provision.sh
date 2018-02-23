@@ -137,7 +137,7 @@ dpkg -s mysql-server-5.7 &>/dev/null || {
   sudo apt-get purge -y expect
 }
 
-sudo cp /vagrant/boards/config/overrides.my.cnf /etc/mysql/mysql.conf.d/overrides.my.cnf
+sudo cp /vagrant/ci_dashboard/config/overrides.my.cnf /etc/mysql/mysql.conf.d/overrides.my.cnf
 sudo service mysql restart
 
 # Setup of database
