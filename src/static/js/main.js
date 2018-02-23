@@ -1,26 +1,20 @@
-var endpoint = 'http://localhost:8000/ci/data/';
+var endpoint = 'ci/data/';
 var builds = $.ajax({
   method: "GET",
   url: endpoint,
   success: function(data){
-    finalData = prepare_data_stacked_bar(data);
-    console.log(finalData);
-
+    finalData = prepare_data_for_charts(data);
     passed = getPassed(finalData);
     failed = getFailed(finalData);
     dates = getDates(finalData);
     duration = getDuration(finalData);
+
     createStackedBarChart(passed, failed, dates);
     createSimpleBarChart(duration, dates);
-  },
-  error: function(error_data){
-    console.log("error");
-    console.log(error_data);
   }
 });
 
-var prepare_data_stacked_bar = function(initialData){
-  console.log(initialData);
+var prepare_data_for_charts = function(initialData){
   var finalData = {};
   initialData.builds.forEach(function(element){
     var date = element.created_at.slice(0,10);
@@ -32,7 +26,6 @@ var prepare_data_stacked_bar = function(initialData){
       }
     }
     var duration = element.duration;
-    console.log(duration);
     finalData[date].duration += parseFloat(duration);
     var status = element.summary_status;
     if (status === 'passed') {
@@ -40,7 +33,7 @@ var prepare_data_stacked_bar = function(initialData){
     } else if (status === 'failed') {
       finalData[date].failed++;
     }
-  })
+  });
 
   var keys = [];
   for (var item in finalData) {
@@ -69,9 +62,8 @@ var getPassed = function(finalData) {
   for (var element in finalData) {
     passed.push(finalData[element].passed);
   }
-  console.log(passed);
   return passed;
-}
+};
 
 var getFailed = function(finalData) {
   var failed = [];
@@ -79,7 +71,8 @@ var getFailed = function(finalData) {
     failed.push(finalData[element].failed);
   }
   return failed;
-}
+};
+
 
 var getDuration = function(finalData) {
   var duration = [];
@@ -89,7 +82,7 @@ var getDuration = function(finalData) {
   return duration;
 }
 
-var createStackedBarChart = function(dataPack1, dataPack2,dates) {
+var createStackedBarChart = function(dataPack1, dataPack2, dates) {
 
   var bar_ctx = document.getElementById('stacked-bar-chart');
   var bar_chart = new Chart(bar_ctx, {
@@ -145,7 +138,8 @@ var createStackedBarChart = function(dataPack1, dataPack2,dates) {
           },
           title: {
             display: true,
-            text: 'Summary statuses for builds per day'
+            text: 'Summary statuses for builds per day',
+            fontSize: 25,
           }
       } // options
      }
@@ -162,10 +156,10 @@ var createSimpleBarChart = function(dataPack,dates) {
           labels: dates,
           datasets: [
           {
-              label: 'passed',
+              label: 'duration',
               data: dataPack,
-              backgroundColor: "rgba(55, 160, 225, 0.7)",
-              hoverBackgroundColor: "rgba(55, 160, 225, 0.7)",
+              backgroundColor: "rgb(0, 230, 172)",
+              hoverBackgroundColor: "rgb(0, 128, 0)",
               hoverBorderWidth: 2,
               hoverBorderColor: 'lightgrey'
           }
@@ -185,27 +179,30 @@ var createSimpleBarChart = function(dataPack,dates) {
            },
           scales: {
             xAxes: [{
-              // stacked: true,
               gridLines: { display: false },
               }],
             yAxes: [{
               stacked: true,
               ticks: {
-                callback: function(value) { return value; },
+                stepSize: 2000,
+                max: 7000,
               },
               }],
           }, // scales
           legend: {
-            display: true,
-            // position: 'right',
+            display: false,
           },
           title: {
             display: true,
-            text: 'Summary statuses for builds per day'
+            text: 'Build duration vs time',
+            fontSize: 25
           }
       } // options
      }
   );
 };
+
+
+
 
 
