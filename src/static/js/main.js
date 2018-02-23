@@ -184,8 +184,7 @@ var createSimpleBarChart = function(dataPack,dates) {
             yAxes: [{
               stacked: true,
               ticks: {
-                stepSize: 2000,
-                max: 7000,
+                callback: function(value) { return value; },
               },
               }],
           }, // scales
