@@ -12,8 +12,3 @@ def home(request):
 
 def data(request):
     return JsonResponse(get_data())
-
-
-def data_stacked_bar(request):
-    result = Build.prepare_data_stacked_bar()
-    return HttpResponse(result)
