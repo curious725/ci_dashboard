@@ -8,6 +8,4 @@ urlpatterns = [
     url(r'^$', views.home, name='home'),
     # ex: /data
     url(r'^data/$', views.data, name='data'),
-    # ex: /data/stacked-bar
-    url(r'^data/stacked-bar$', views.data_stacked_bar, name='stacked-bar'),
 ]
