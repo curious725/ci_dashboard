@@ -1,1 +1,7 @@
-
+#bar-chart {
+  width: 600px;
+  height: 350px;
+}
+#duration-time-chart {
+  max-height: 555px;
+}

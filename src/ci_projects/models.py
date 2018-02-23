@@ -1,4 +1,6 @@
 from django.db import models
+from django.core import serializers
+from django.db import connection
 
 
 class Build(models.Model):
@@ -23,3 +25,12 @@ class Build(models.Model):
         return "build with session_id {0}, created at {1}".format(
             self.session_id, self.created_at
         )
+
+    @classmethod
+    def prepare_data_stacked_bar(cls):
+
+        builds = Build.objects.all().only("created_at", "summary_status").filter(summary_status="passed")
+        print(type(builds))
+        print(builds)
+        data = serializers.serialize("json", builds)
+        return data
