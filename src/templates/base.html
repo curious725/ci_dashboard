@@ -13,6 +13,11 @@
 <body>
   {% block body %}
 
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container">
+        <a href="{% url 'home' %}" class="navbar-brand">CI Dashboard</a>
+      </div>
+    </nav>
 
     <div class="container">
       {% block content %}
