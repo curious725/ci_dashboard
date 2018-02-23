@@ -65,33 +65,7 @@ dpkg -s python3.6-dev &>/dev/null || {
   sudo apt-get install -y python3.6-dev
 }
 
-# Dependencies for image processing with Pillow (drop-in replacement for PIL)
-# supporting: jpeg, tiff, png, freetype, littlecms
-dpkg -s libjpeg-dev &>/dev/null || {
-    sudo apt-get install -y libjpeg-dev
-}
-
-dpkg -s libtiff5-dev &>/dev/null || {
-    sudo apt-get install -y libtiff5-dev
-}
-
-dpkg -s zlib1g-dev &>/dev/null || {
-    sudo apt-get install -y zlib1g-dev
-}
-
-dpkg -s libfreetype6-dev &>/dev/null || {
-    sudo apt-get install -y libfreetype6-dev
-}
-
-dpkg -s liblcms2-dev &>/dev/null || {
-    sudo apt-get install -y liblcms2-dev
-}
-
-dpkg -s libncurses5-dev &>/dev/null || {
-  sudo apt-get install -y libncurses5-dev
-}
-
-# Git (we'd rather avoid people keeping credentials for git commits in the repo,
+g# Git (we'd rather avoid people keeping credentials for git commits in the repo,
 # but sometimes we need it for pip requirements that aren't in PyPI)
 dpkg -s git &>/dev/null || {
     sudo apt-get install -y git
@@ -137,7 +111,7 @@ dpkg -s mysql-server-5.7 &>/dev/null || {
   sudo apt-get purge -y expect
 }
 
-sudo cp /vagrant/boards/config/overrides.my.cnf /etc/mysql/mysql.conf.d/overrides.my.cnf
+sudo cp /vagrant/ci_dashboard/config/overrides.my.cnf /etc/mysql/mysql.conf.d/overrides.my.cnf
 sudo service mysql restart
 
 # Setup of database
