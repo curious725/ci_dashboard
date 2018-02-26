@@ -65,7 +65,7 @@ dpkg -s python3.6-dev &>/dev/null || {
   sudo apt-get install -y python3.6-dev
 }
 
-g# Git (we'd rather avoid people keeping credentials for git commits in the repo,
+# Git (we'd rather avoid people keeping credentials for git commits in the repo,
 # but sometimes we need it for pip requirements that aren't in PyPI)
 dpkg -s git &>/dev/null || {
     sudo apt-get install -y git
