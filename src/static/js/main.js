@@ -10,7 +10,7 @@ var builds = $.ajax({
     duration = getDuration(finalData);
 
     createStackedBarChart(passed, failed, dates);
-    createSimpleBarChart(duration, dates);
+    createDurationTimeChart(duration, dates);
   }
 });
 
@@ -147,11 +147,11 @@ var createStackedBarChart = function(dataPack1, dataPack2, dates) {
 };
 
 
-var createSimpleBarChart = function(dataPack,dates) {
+var createDurationTimeChart = function(dataPack,dates) {
 
   var bar_ctx = document.getElementById('duration-time-chart');
   var bar_chart = new Chart(bar_ctx, {
-      type: 'bar',
+      type: 'line',
       data: {
           labels: dates,
           datasets: [
@@ -159,9 +159,6 @@ var createSimpleBarChart = function(dataPack,dates) {
               label: 'duration',
               data: dataPack,
               backgroundColor: "rgb(0, 230, 172)",
-              hoverBackgroundColor: "rgb(0, 128, 0)",
-              hoverBorderWidth: 2,
-              hoverBorderColor: 'lightgrey'
           }
           ]
       },
