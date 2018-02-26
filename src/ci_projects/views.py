@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 from .models import Build
 from .utils import get_data
+from .serializers import BuildSerializer
 
 
 def home(request):
@@ -11,4 +12,6 @@ def home(request):
 
 
 def data(request):
-    return JsonResponse(get_data())
+    builds = Build.objects.all()
+    serializer = BuildSerializer(builds, many=True)
+    return JsonResponse(serializer.data, safe=False)
