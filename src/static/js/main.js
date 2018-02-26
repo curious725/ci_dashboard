@@ -8,8 +8,10 @@ var builds = $.ajax({
     failed = getFailed(finalData);
     dates = getDates(finalData);
     duration = getDuration(finalData);
+    outliersFailed = findOutliers(failed);
 
     createStackedBarChart(passed, failed, dates);
+    createOutliersFailedChart(outliersFailed, dates);
     createDurationTimeChart(duration, dates);
   }
 });
@@ -70,6 +72,7 @@ var getFailed = function(finalData) {
   for (var element in finalData) {
     failed.push(finalData[element].failed);
   }
+  console.log(failed);
   return failed;
 };
 
@@ -81,6 +84,36 @@ var getDuration = function(finalData) {
   }
   return duration;
 }
+
+var findOutliers = function(failed){
+
+  var failedBuilds = failed.concat();
+
+  // sort array of numbers failed builds
+  failedBuilds.sort(function(a, b) {
+    return a - b;
+  });
+  // find first quartile
+  var q1 = failedBuilds[Math.floor(failedBuilds.length / 4)];
+  // debugger;
+  // find third quartile
+  var q3 = failedBuilds[Math.ceil(failedBuilds.length * (3 / 4))];
+  // find inter-quartile range
+  var iqr = q3 - q1
+
+  // we find only max value, because we are interested only in high outliers
+  var maxValue = q3 + iqr*1.5;
+
+  var outliersFailed = failed.concat();
+  for(var i=0;i<outliersFailed.length;i++){
+    if(outliersFailed[i] < maxValue){
+      outliersFailed[i] = 0;
+    }
+  }
+
+  return outliersFailed;
+
+};
 
 var createStackedBarChart = function(dataPack1, dataPack2, dates) {
 
@@ -145,6 +178,65 @@ var createStackedBarChart = function(dataPack1, dataPack2, dates) {
      }
   );
 };
+
+var createOutliersFailedChart = function(dataPack,dates) {
+
+  var bar_ctx = document.getElementById('outliers-failed-chart');
+  var bar_chart = new Chart(bar_ctx, {
+      type: 'bar',
+      data: {
+          labels: dates,
+          datasets: [
+          {
+              label: 'duration',
+              data: dataPack,
+              backgroundColor: "rgb(0, 230, 172)",
+              hoverBackgroundColor: "rgb(0, 128, 0)",
+              hoverBorderWidth: 2,
+              hoverBorderColor: 'lightgrey'
+          }
+          ]
+      },
+      options: {
+          animation: {
+            duration: 10,
+          },
+          tooltips: {
+            mode: 'label',
+            callbacks: {
+            label: function(tooltipItem, data) {
+              return data.datasets[tooltipItem.datasetIndex].label + ": " + tooltipItem.yLabel;
+            }
+            }
+           },
+          scales: {
+            xAxes: [{
+              gridLines: { display: false },
+              }],
+            yAxes: [{
+              stacked: true,
+              ticks: {
+                callback: function(value) { return value; },
+              },
+              }],
+          }, // scales
+          legend: {
+            display: false,
+          },
+          title: {
+            display: true,
+            text: 'Outliers in Failed Builds',
+            fontSize: 25
+          }
+      } // options
+     }
+  );
+};
+
+
+
+
+
 
 
 var createDurationTimeChart = function(dataPack,dates) {
