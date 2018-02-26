@@ -18,7 +18,7 @@ var builds = $.ajax({
 
 var prepare_data_for_charts = function(initialData){
   var finalData = {};
-  initialData.builds.forEach(function(element){
+  initialData.forEach(function(element){
     var date = element.created_at.slice(0,10);
     if (!(date in finalData)) {
       finalData[date] = {
