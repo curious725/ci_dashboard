@@ -33,8 +33,6 @@ class Command(BaseCommand):
 
             for row in reader:
                 _formatted_date = _format_date(row[2])
-                print(_format_date)
-                print('ok')
                 Build.objects.get_or_create(
                     session_id=row[0],
                     started_by=row[1],
