@@ -1,14 +1,14 @@
 var endpoint = 'ci/data/';
-var builds = $.ajax({
+$.ajax({
   method: "GET",
   url: endpoint,
   success: function(data){
-    finalData = prepare_data_for_charts(data);
-    passed = getPassed(finalData);
-    failed = getFailed(finalData);
-    dates = getDates(finalData);
-    duration = getDuration(finalData);
-    outliersFailed = findOutliers(failed);
+    var finalData = prepare_data_for_charts(data);
+    var passed = getPassed(finalData);
+    var failed = getFailed(finalData);
+    var dates = getDates(finalData);
+    var duration = getDuration(finalData);
+    var outliersFailed = findOutliers(failed);
 
     createStackedBarChart(passed, failed, dates);
     createOutliersFailedChart(outliersFailed, dates);
@@ -25,7 +25,7 @@ var prepare_data_for_charts = function(initialData){
         passed: 0,
         failed: 0,
         duration: 0.0
-      }
+      };
     }
     var duration = element.duration;
     finalData[date].duration += parseFloat(duration);
@@ -46,7 +46,7 @@ var prepare_data_for_charts = function(initialData){
   var sortedFinalData = {};
   keys.forEach(function(element){
     sortedFinalData[element] = finalData[element];
-  })
+  });
 
   return sortedFinalData;
 };
@@ -54,10 +54,10 @@ var prepare_data_for_charts = function(initialData){
 var getDates = function(finalData) {
   var dates = [];
   for (var element in finalData){
-    dates.push(element)
+    dates.push(element);
   }
   return dates;
-}
+};
 
 var getPassed = function(finalData) {
   var passed = [];
@@ -82,7 +82,7 @@ var getDuration = function(finalData) {
     duration.push(finalData[element].duration);
   }
   return duration;
-}
+};
 
 var findOutliers = function(failed){
 
@@ -98,7 +98,7 @@ var findOutliers = function(failed){
   // find third quartile
   var q3 = failedBuilds[Math.ceil(failedBuilds.length * (3 / 4))];
   // find inter-quartile range
-  var iqr = q3 - q1
+  var iqr = q3 - q1;
 
   // we find only max value, because we are interested only in high outliers
   var maxValue = q3 + iqr*1.5;
@@ -288,8 +288,3 @@ var createDurationTimeChart = function(dataPack,dates) {
      }
   );
 };
-
-
-
-
-
