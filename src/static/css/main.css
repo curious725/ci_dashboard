@@ -1,6 +1,22 @@
+.navbar .bg-dark {
+  background-color: #558C89;
+}
 .second-nav {
   margin-top: 30px;
 }
 .chart {
   margin-top: 40px;
 }
+.nav-item{
+  background-color: #7D1935;
+  color: #F5F3EE;
+
+}
+.nav-link:hover {
+  color: #F5F3EE;
+}
+.nav-tabs {
+    border-bottom: 5px solid #4A96AD;
+}
+
+
