@@ -72,7 +72,6 @@ var getFailed = function(finalData) {
   for (var element in finalData) {
     failed.push(finalData[element].failed);
   }
-  console.log(failed);
   return failed;
 };
 
