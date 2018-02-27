@@ -1,5 +1,6 @@
 from django.core.management.base import BaseCommand
 from django.conf import settings
+from django.contrib.staticfiles.finders import find
 import csv
 import time
 import pytz
@@ -24,7 +25,7 @@ class Command(BaseCommand):
         parser.add_argument('file_path', nargs='+', type=str)
 
     def handle(self, *args, **options):
-        file_path = options["file_path"][0]
+        file_path = find(options["file_path"][0])
 
         with open(file_path) as f:
             reader = csv.reader(f)
