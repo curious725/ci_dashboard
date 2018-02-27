@@ -1,4 +1,5 @@
 "use strict";
+
 var endpoint = 'ci/data/';
 $.ajax({
   method: "GET",
@@ -16,6 +17,7 @@ $.ajax({
     createDurationTimeChart(duration, dates);
   }
 });
+
 
 var prepare_data_for_charts = function(initialData){
   var finalData = {};
@@ -52,6 +54,7 @@ var prepare_data_for_charts = function(initialData){
   return sortedFinalData;
 };
 
+
 var getDates = function(finalData) {
   var dates = [];
   for (var element in finalData){
@@ -60,6 +63,7 @@ var getDates = function(finalData) {
   return dates;
 };
 
+
 var getPassed = function(finalData) {
   var passed = [];
   for (var element in finalData) {
@@ -67,6 +71,7 @@ var getPassed = function(finalData) {
   }
   return passed;
 };
+
 
 var getFailed = function(finalData) {
   var failed = [];
@@ -84,6 +89,7 @@ var getDuration = function(finalData) {
   }
   return duration;
 };
+
 
 var findOutliers = function(failed){
 
@@ -114,6 +120,7 @@ var findOutliers = function(failed){
   return outliersFailed;
 
 };
+
 
 var createStackedBarChart = function(dataPack1, dataPack2, dates) {
 
@@ -171,13 +178,14 @@ var createStackedBarChart = function(dataPack1, dataPack2, dates) {
           },
           title: {
             display: true,
-            text: 'Summary statuses for builds per day',
+            text: 'Summary of statuses for builds per day',
             fontSize: 25,
           }
       } // options
      }
   );
 };
+
 
 var createOutliersFailedChart = function(dataPack,dates) {
 
@@ -232,11 +240,6 @@ var createOutliersFailedChart = function(dataPack,dates) {
      }
   );
 };
-
-
-
-
-
 
 
 var createDurationTimeChart = function(dataPack,dates) {
