@@ -1,8 +1,8 @@
 from django.shortcuts import render
-from django.http import HttpResponse, JsonResponse
-from .models import Build
-from .utils import get_data
+from django.http import JsonResponse
 from .serializers import BuildSerializer
+
+from .models import Build
 
 
 def home(request):

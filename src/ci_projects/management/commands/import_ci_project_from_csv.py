@@ -1,11 +1,11 @@
-from django.core.management.base import BaseCommand
-from django.conf import settings
-from django.contrib.staticfiles.finders import find
 import csv
 import time
 import pytz
 from time import mktime
 from datetime import datetime
+from django.conf import settings
+from django.core.management.base import BaseCommand
+from django.contrib.staticfiles.finders import find
 
 from ci_projects.models import Build
 
