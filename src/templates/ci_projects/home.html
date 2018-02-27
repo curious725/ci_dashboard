@@ -5,7 +5,7 @@
 
 {% block content %}
 
-<nav>
+<nav class="second-nav">
   <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
     <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab"
     href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">
@@ -30,17 +30,17 @@
 
   </div>
   <div class="tab-pane fade" id="passed-failed-per-day-chart" role="tabpanel" aria-labelledby="nav-profile-tab">
-    <div>
+    <div class="chart">
       <canvas id="stacked-bar-chart" ></canvas>
     </div>
   </div>
   <div class="tab-pane fade" id="failed-builds-outliers-chart" role="tabpanel" aria-labelledby="nav-contact-tab">
-    <div>
+    <div class="chart">
       <canvas id="outliers-failed-chart"></canvas>
     </div>
   </div>
   <div class="tab-pane fade" id="duration-time-builds-chart" role="tabpanel" aria-labelledby="nav-contact-tab">
-    <div>
+    <div class="chart">
       <canvas id="duration-time-chart"></canvas>
     </div>
   </div>

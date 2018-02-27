@@ -1,7 +1,6 @@
-#bar-chart {
-  width: 600px;
-  height: 350px;
+.second-nav {
+  margin-top: 30px;
 }
-#duration-time-chart {
-  max-height: 555px;
+.chart {
+  margin-top: 40px;
 }
