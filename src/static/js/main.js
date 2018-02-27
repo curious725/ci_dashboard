@@ -1,3 +1,4 @@
+"use strict";
 var endpoint = 'ci/data/';
 $.ajax({
   method: "GET",
