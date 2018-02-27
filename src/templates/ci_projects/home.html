@@ -4,13 +4,45 @@
 
 
 {% block content %}
-<div>
-  <canvas id="stacked-bar-chart" ></canvas>
-</div>
-<div>
-  <canvas id="outliers-failed-chart"></canvas>
-</div>
-<div>
-  <canvas id="duration-time-chart"></canvas>
-</div>
+
+<nav>
+  <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab"
+    href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">
+      Home
+    </a>
+    <a class="nav-item nav-link" id="passed-failed-per-day-chart-tab"
+    data-toggle="tab" href="#passed-failed-per-day-chart" role="tab"
+    aria-controls="nav-profile" aria-selected="false">
+      Passed/failed builds per day
+    </a>
+    <a class="nav-item nav-link" id="failed-builds-outliers-chart-tab"
+    data-toggle="tab" href="#failed-builds-outliers-chart" role="tab"
+    aria-controls="nav-contact" aria-selected="false">
+      Failed Builds Outliers
+    </a>
+    <a class="nav-item nav-link" id="duration-time-builds-chart-tab" data-toggle="tab" href="#duration-time-builds-chart" role="tab" aria-controls="nav-contact" aria-selected="false">Builds duration vs time</a>
+
+  </div>
+</nav>
+<div class="tab-content" id="nav-tabContent">
+  <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+
+  </div>
+  <div class="tab-pane fade" id="passed-failed-per-day-chart" role="tabpanel" aria-labelledby="nav-profile-tab">
+    <div>
+      <canvas id="stacked-bar-chart" ></canvas>
+    </div>
+  </div>
+  <div class="tab-pane fade" id="failed-builds-outliers-chart" role="tabpanel" aria-labelledby="nav-contact-tab">
+    <div>
+      <canvas id="outliers-failed-chart"></canvas>
+    </div>
+  </div>
+  <div class="tab-pane fade" id="duration-time-builds-chart" role="tabpanel" aria-labelledby="nav-contact-tab">
+    <div>
+      <canvas id="duration-time-chart"></canvas>
+    </div>
+  </div>
+  </div>
 {% endblock content %}
