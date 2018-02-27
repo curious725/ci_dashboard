@@ -190,7 +190,7 @@ var createOutliersFailedChart = function(dataPack,dates) {
           {
               label: 'duration',
               data: dataPack,
-              backgroundColor: "rgb(0, 230, 172)",
+              backgroundColor: "rgb(183, 20, 39)",
               hoverBackgroundColor: "rgb(0, 128, 0)",
               hoverBorderWidth: 2,
               hoverBorderColor: 'lightgrey'
@@ -250,7 +250,7 @@ var createDurationTimeChart = function(dataPack,dates) {
           {
               label: 'duration',
               data: dataPack,
-              backgroundColor: "rgb(0, 230, 172)",
+              backgroundColor: "rgb(168, 205, 27)",
           }
           ]
       },
