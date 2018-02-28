@@ -29,7 +29,8 @@
       <p>Welcome to CI dashboard.</p>
       <p>
         This small web-application loads default csv file into MySQL database.
-        You can download this <a href="{% static 'session_history.csv' %}">this csv file</a>.
+        You can download this csv <a href="{% static 'session_history.csv' %}">
+        file</a>.
       </p>
       <p><span class="special">Backend:</span> Django & Django REST Framework creates API endpoint where is sent
         information about all builds from database in JSON format.</p>
@@ -47,6 +48,20 @@
     <div class="chart">
       <canvas id="outliers-failed-chart"></canvas>
     </div>
+      <div class="algoexplanation">
+        <h5>* Algorithm for detection outliers we used here</h5>
+        <p>An outlier is an observation that lies an abnormal distance from other values in a random sample from a population.</p>
+        <p>To detect outliers we use a method described by Moore and McCabe. This method gives more strict definition of outlier as a point which falls more than 1.5 times the interquartile range above the third quartile or below the first quartile. According to this method, we need to find for our sorted dataset:</p>
+        <ul>
+          <li>the first quartile Q1</li>
+          <li>the third quartile Q3</li>
+          <li>interquartile range IQR = Q3 - Q1</li>
+          <li>lower outlier boundary = Q1 - 1.5 * IQR</li>
+          <li>upper outlier boundary = Q3 + 1.5 * IQR</li>
+        </ul>
+        <p>In our application we are interested only in high outliers(data higher
+        than upper outlier boundary) - we want to track the number of failed builds that is bigger than normal.</p>
+      </div>
   </div>
   <div class="tab-pane fade" id="duration-time-builds-chart" role="tabpanel" aria-labelledby="nav-contact-tab">
     <div class="chart">
