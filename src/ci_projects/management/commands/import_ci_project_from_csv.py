@@ -12,7 +12,6 @@ from ci_projects.models import Build
 
 def _format_date(date):
     date = time.strptime(date, "%Y-%m-%d %H:%M:%S %Z")
-    print(date)
     date = datetime.fromtimestamp(mktime(date))
     date = pytz.timezone(settings.TIME_ZONE).localize(date)
     return date
