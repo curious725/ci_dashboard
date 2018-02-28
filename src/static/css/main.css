@@ -17,14 +17,12 @@
   font-size: 20px;
 }
 .nav-item{
-  background-color: #7D1935;
-  color: #F5F3EE;
+  background-color: #F5F3EE;
+  color: #4A96AD;
+  font-weight: bold;
 }
-.nav-link:hover {
-  color: #F5F3EE;
-}
-.nav-tabs {
-  border-bottom: 5px solid #4A96AD;
+.nav-link {
+  border: 2px solid #7D1935;
 }
 .special {
   font-family: 'Berkshire Swash', cursive;
